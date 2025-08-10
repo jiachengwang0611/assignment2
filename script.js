@@ -30,24 +30,43 @@ function save(db) { localStorage.setItem(KEY, JSON.stringify(db)); }
 
 /* --- Cars come from Data.json every load --- */
 async function fetchCarsFromJson() {
-  // Use your live JSON URL directly
-  const url = 'https://jiachengwang0611.github.io/assignment2/Data.json';
+  const PROD_URL = 'https://jiachengwang0611.github.io/assignment2/Data.json';
+  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
 
-  const res = await fetch(url, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`HTTP ${res.status} at ${url}`);
+  // Try list of URLs until one succeeds
+  const candidates = isLocal
+    ? ['./Data.json', '/Data.json', '/assignment2/Data.json', PROD_URL]
+    : [PROD_URL, './Data.json', '/Data.json', '/assignment2/Data.json'];
 
-  const data = await res.json();
-  console.log('Loaded cars from', url, data);            // <— debug
-  return (data.cars || []).map(c => ({
-    id: c.id,
-    make: c.make,
-    model: c.model,
-    seater: c.seater || '',
-    pricePerDay: c.ratePerDay ?? c.pricePerDay ?? 0,
-    status: c.status || 'available',
-    img: c.img || 'https://picsum.photos/seed/car/300/200'
-  }));
+  let lastErr = null;
+
+  for (const url of candidates) {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status} at ${url}`);
+      const data = await res.json();
+      console.log('[AZoom] Loaded cars from', url, data);
+      return (data.cars || []).map(c => ({
+        id: c.id,
+        make: c.make,
+        model: c.model,
+        seater: c.seater || '',
+        pricePerDay: c.ratePerDay ?? c.pricePerDay ?? 0,
+        status: c.status || 'available',
+        img: c.img || 'https://picsum.photos/seed/car/300/200'
+      }));
+    } catch (e) {
+      console.warn('[AZoom] Data.json candidate failed:', e.message);
+      lastErr = e;
+      // try next candidate
+    }
+  }
+
+  // If all failed:
+  alert(`Could not load Data.json.\n${lastErr?.message || 'Unknown error'}`);
+  throw lastErr || new Error('Data.json fetch failed');
 }
+
 
 
 
@@ -164,4 +183,5 @@ function setupRent(db) {
     log('Rented', rid);
   });
 }
+
 
