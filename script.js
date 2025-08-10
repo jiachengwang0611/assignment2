@@ -55,32 +55,6 @@ async function fetchCarsFromJson() {
   }
 }
 
-
-/* ---------------- page init ---------------- */
-document.addEventListener('DOMContentLoaded', async () => {
-  const page = document.body?.dataset?.page || 'unknown';
-  log('Page detected:', page);
-
-  const db = load(); // reservations/rentals/returns/state
-
-  try {
-    // Always refresh cars from Data.json; preserve any saved status by id
-    const carsFromFile = await fetchCarsFromJson();
-    const savedStatusById = Object.fromEntries((db.cars || []).map(c => [c.id, c.status]));
-    db.cars = carsFromFile.map(c => ({ ...c, status: savedStatusById[c.id] ?? c.status }));
-    save(db);
-
-    if (page === 'home') { renderHome(db); return; }
-    if (page === 'reserve') setupReserve(db);
-    else if (page === 'rent')    setupRent(db);
-    else if (page === 'return')  setupReturn(db);
-    else log('Unknown page. Did you set data-page on <body>?');
-  } catch (e) {
-    console.error('Init error on page', page, e);
-    alert('Could not load Data.json. Make sure you’re serving the site via a local server (not file://).');
-  }
-});
-
 /* ---------- Home ---------- */
 function renderHome(db) {
   const list = $('#carsList');
@@ -169,3 +143,4 @@ function setupRent(db) {
     log('Rented', rid);
   });
 }
+
