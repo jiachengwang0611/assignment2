@@ -1,0 +1,67 @@
+{
+  "cars": [
+    {
+      "id": "C1",
+      "make": "Toyota",
+      "model": "Corolla",
+      "ratePerDay": 55,
+      "seater": "4 Seater", 
+      "status": "available",
+      "img": "https://www.toyota.com.sg/showroom/new-models/-/media/5c6f78660bf646fc9c475513e44a2f9e.png"
+    },
+    {
+      "id": "C2",
+      "make": "Honda",
+      "model": "Civic",
+      "seater": "4 Seater", 
+      "ratePerDay": 65,
+      "status": "available",
+      "img": "https://images.unsplash.com/photo-1619767886558-efdc259cde1a"
+    },
+    {
+      "id": "C3",
+      "make": "Tesla",
+      "model": "Model 3",
+      "seater": "4 Seater", 
+      "ratePerDay": 150,
+      "status": "available",
+      "img": "https://i.i-sgcm.com/new_cars/cars/12847/12847_g139_b.jpg"
+    },
+    {
+      "id": "C4",
+      "make": "Toyota",
+      "model": "Corolla",
+      "seater": "4 Seater", 
+      "ratePerDay": 103,
+      "status": "available",
+      "img": "https://www.toyota.com.sg/showroom/new-models/-/media/9e940b3d980440a7888e085406f258d6.png"
+    },
+    {
+      "id": "C5",
+      "make": "Nissan",
+      "model": "Altima",
+      "seater": "4 Seater", 
+      "ratePerDay": 129,
+      "status": "available",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuEvP4tVaKTodpVnasJsNTrdBVmxKfRk4PaQ&s"
+    },
+    {
+      "id": "C6",
+      "make": "Toyota",
+      "model": "Alphard",
+      "seater": "6 Seater", 
+      "ratePerDay": 200,
+      "status": "available",
+      "img": "https://www.maxitaxisg.com/wp-content/uploads/2023/12/6-seater.jpg"
+    },
+    {
+      "id": "C7",
+      "make": "Toyota",
+      "model": "Sienta ",
+      "seater": "6 Seater", 
+      "ratePerDay": 210,
+      "status": "available",
+      "img": "hhttps://lioncityrentals.com.sg/wp-content/uploads/2023/03/LCR-NEW-Thumb-02-1200x1200.jpg"
+    }
+  ]
+}

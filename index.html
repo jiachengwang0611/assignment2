@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AZoom Car Rental</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="home">
+  <header class="topnav">
+    <a class="active" href="index.html">Home</a>
+    <a href="reserve.html">Reserve</a>
+    <a href="rent.html">Rent @ Office</a>
+    <a href="return.html">Return @ Car Park</a>
+  </header>
+
+  <main class="container">
+    <h1>AZoom Car Rental</h1>
+    <h2 style="margin-top:32px">Available Cars</h2>
+    <div id="carsList" class="grid"></div>
+  </main>
+
+<!-- How it works (A.B.C) -->
+<section class="howitworks" style="--how-bg: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1600');">
+  <div class="container">
+    <p class="how-eyebrow">NOT A MEMBER YET?</p>
+    <h2 class="how-title">GETTING STARTED IS AS EASY AS A.B.C*</h2>
+
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-icon">🪪</div>
+        <h3>1. Apply</h3>
+        <p>Sign up with valid ID & driving license and refundable deposit.</p>
+      </div>
+
+      <div class="how-step">
+        <div class="how-icon">📍</div>
+        <h3>2. Book</h3>
+        <p>Choose car model, location and duration. Pay by e-wallet or card.</p>
+      </div>
+
+      <div class="how-step">
+        <div class="how-icon">📱</div>
+        <h3>3. Collect</h3>
+        <p>Log in to auto-unlock and submit photos before driving off.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Footer Newsletter -->
+  <footer class="newsletter">
+    <div class="container">
+      <h2>Stay in the loop with our weekly newsletter</h2>
+      <form class="newsletter-form">
+        <label>
+          Name<span class="required">*</span>
+          <input type="text" placeholder="Your Name" required>
+        </label>
+        <label>
+          Email<span class="required">*</span>
+          <input type="email" placeholder="Your email address" required>
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>How it works</h4>
+          <ul>
+            <li><a href="#">Rates</a></li>
+            <li><a href="#">Locations</a></li>
+            <li><a href="#">Vehicles</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">GetDeals</a></li>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact</a></li>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
