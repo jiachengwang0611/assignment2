@@ -30,15 +30,16 @@ function save(db) { localStorage.setItem(KEY, JSON.stringify(db)); }
 
 /* --- Cars come from Data.json every load --- */
 async function fetchCarsFromJson() {
-  // Resolve Data.json relative to the current page (works on all pages)
-  const url = new URL('Data.json', document.baseURI).toString();
+  // Use local file when developing, absolute URL when hosted
+  const PROD_URL = 'https://jiachengwang0611.github.io/assignment2/Data.json';
+  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+  const url = isLocal ? './Data.json' : PROD_URL;
 
   try {
     const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status} at ${url}`);
     const data = await res.json();
 
-    // Map Data.json -> app shape (ratePerDay -> pricePerDay)
     return (data.cars || []).map(c => ({
       id: c.id,
       make: c.make,
@@ -54,6 +55,33 @@ async function fetchCarsFromJson() {
     throw err;
   }
 }
+
+
+
+/* ---------------- page init ---------------- */
+document.addEventListener('DOMContentLoaded', async () => {
+  const page = document.body?.dataset?.page || 'unknown';
+  log('Page detected:', page);
+
+  const db = load(); // reservations/rentals/returns/state
+
+  try {
+    // Always refresh cars from Data.json; preserve any saved status by id
+    const carsFromFile = await fetchCarsFromJson();
+    const savedStatusById = Object.fromEntries((db.cars || []).map(c => [c.id, c.status]));
+    db.cars = carsFromFile.map(c => ({ ...c, status: savedStatusById[c.id] ?? c.status }));
+    save(db);
+
+    if (page === 'home') { renderHome(db); return; }
+    if (page === 'reserve') setupReserve(db);
+    else if (page === 'rent')    setupRent(db);
+    else if (page === 'return')  setupReturn(db);
+    else log('Unknown page. Did you set data-page on <body>?');
+  } catch (e) {
+    console.error('Init error on page', page, e);
+    alert('Could not load Data.json. Make sure you’re serving the site via a local server (not file://).');
+  }
+});
 
 /* ---------- Home ---------- */
 function renderHome(db) {
@@ -143,4 +171,3 @@ function setupRent(db) {
     log('Rented', rid);
   });
 }
-
