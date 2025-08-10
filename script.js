@@ -58,7 +58,6 @@ async function fetchCarsFromJson() {
     } catch (e) {
       console.warn('[AZoom] Data.json candidate failed:', e.message);
       lastErr = e;
-      // try next candidate
     }
   }
 
@@ -155,6 +154,37 @@ function setupReserve(db) {
   });
 }
 
+/* ---------- Return ---------- */
+function setupReturn(db){
+  const form = $('#returnForm'), msg = $('#returnMsg');
+  if (!form) { log('return: form not found'); return; }
+
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+
+    const rid = $('#reserveId')?.value?.trim();
+    if (!rid){ alert('Enter Reservation ID'); return; }
+
+    const r = db.reservations.find(x => x.id === rid);
+    if (!r){ alert('Reservation not found'); return; }
+
+    const car = db.cars.find(c => c.id === r.carId);
+    if (!car){ alert('Car not found'); return; }
+    if (car.status !== 'rented'){ alert('This car is not currently rented'); return; }
+
+    car.status = 'returned';
+    db.returns.push({ reservedId: rid, ts: Date.now(), carId: car.id });
+    save(db);
+
+    if (msg){
+      msg.textContent = `Marked as RETURNED: ${car.make} ${car.model} (Reservation ${rid}).`;
+      msg.style.display = 'block';
+    }
+    log('Returned', rid);
+  });
+}
+
+
 /* ---------- Rent ---------- */
 function setupRent(db) {
   const form = $('#rentForm'), msg = $('#rentMsg');
@@ -183,5 +213,6 @@ function setupRent(db) {
     log('Rented', rid);
   });
 }
+
 
 
