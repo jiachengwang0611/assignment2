@@ -242,3 +242,53 @@ footer li {
   margin:0;
   color:var(--subtle);
 }
+/* ---------- How it works band ---------- */
+.howitworks{
+  --overlay: rgba(0,0,0,0.6);
+  background:
+    linear-gradient(0deg, var(--overlay), var(--overlay)),
+    var(--how-bg) center/cover no-repeat fixed;
+  color:#fff;
+  margin-top:40px;
+  padding:64px 0;
+}
+.howitworks .container{ text-align:center; }
+
+.how-eyebrow{
+  letter-spacing:.12em;
+  font-weight:800;
+  color:#ffd95a;
+  margin:0 0 8px;
+}
+.how-title{
+  color:#fff;
+  font-size:28px;
+  margin:0 0 28px;
+}
+
+.how-steps{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:24px;
+}
+@media (max-width: 860px){
+  .how-steps{ grid-template-columns: 1fr; }
+}
+
+.how-step{
+  background: rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:16px;
+  padding:24px;
+}
+.how-icon{
+  font-size:44px; line-height:1;
+  width:72px; height:72px; margin:0 auto 12px;
+  display:grid; place-items:center;
+  border-radius:50%;
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.18);
+}
+.how-step h3{ margin:6px 0 8px; }
+.how-step p{ margin:0; color:var(--subtle); }
+
