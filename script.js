@@ -30,30 +30,23 @@ function save(db) { localStorage.setItem(KEY, JSON.stringify(db)); }
 
 /* --- Cars come from Data.json every load --- */
 async function fetchCarsFromJson() {
-  // Use local file when developing, absolute URL when hosted
-  const PROD_URL = 'https://jiachengwang0611.github.io/assignment2/Data.json';
-  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
-  const url = isLocal ? './Data.json' : PROD_URL;
+  // Use your live JSON URL directly
+  const url = 'https://jiachengwang0611.github.io/assignment2/Data.json';
 
-  try {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status} at ${url}`);
-    const data = await res.json();
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`HTTP ${res.status} at ${url}`);
 
-    return (data.cars || []).map(c => ({
-      id: c.id,
-      make: c.make,
-      model: c.model,
-      seater: c.seater || '',
-      pricePerDay: c.ratePerDay ?? c.pricePerDay ?? 0,
-      status: c.status || 'available',
-      img: c.img || 'https://picsum.photos/seed/car/300/200'
-    }));
-  } catch (err) {
-    console.error('Data.json load failed:', err);
-    alert(`Could not load Data.json.\n${err.message}`);
-    throw err;
-  }
+  const data = await res.json();
+  console.log('Loaded cars from', url, data);            // <— debug
+  return (data.cars || []).map(c => ({
+    id: c.id,
+    make: c.make,
+    model: c.model,
+    seater: c.seater || '',
+    pricePerDay: c.ratePerDay ?? c.pricePerDay ?? 0,
+    status: c.status || 'available',
+    img: c.img || 'https://picsum.photos/seed/car/300/200'
+  }));
 }
 
 
@@ -171,3 +164,4 @@ function setupRent(db) {
     log('Rented', rid);
   });
 }
+
